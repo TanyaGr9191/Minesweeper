@@ -10,6 +10,7 @@ var gLevel = {
 }
 
 var gBoard
+
 var gSecInterval = 1
 var gStartTime = Date.now()
 var gLives = 3
@@ -43,10 +44,16 @@ function restartGame(elBtn) {
     gGame.showCount = 0
     gGame.markedCount = 0
     gGame.secsPassed = 0
-    if(gLevel.SIZE == 4){
+
+    if (gLevel.SIZE == 4) {
         gLives = 2
-    }else{
+    } else {
         gLives = 3
+    }
+    var elHints = document.querySelectorAll('.hint')
+    for (let i = 0; i < elHints.length; i++) {
+        elHints[i].classList.remove('hidden')
+
     }
     updateLives()
     updateTime()
@@ -91,7 +98,6 @@ function getNumClass(num) {
 }
 
 function updateTime() {
-    // var elSpanTimer = document.querySelector('#spanTimer')
     var digit1 = document.querySelector('.digit1')
     var digit2 = document.querySelector('.digit2')
     var digit3 = document.querySelector('.digit3')
@@ -121,9 +127,9 @@ function gameover(gameRes) {
     switchBtnClass(gameRes)
 }
 
-function switchBtnClass(classAdd){
+function switchBtnClass(classAdd) {
 
-    const classOpts =['smiley', 'looser','winner','click']
-    document.querySelector('button').classList.remove(...classOpts)
-    document.querySelector('button').classList.add(classAdd)
+    const classOpts = ['smiley', 'looser', 'winner', 'click']
+    document.querySelector('.game-start-btn').classList.remove(...classOpts)
+    document.querySelector('.game-start-btn').classList.add(classAdd)
 }

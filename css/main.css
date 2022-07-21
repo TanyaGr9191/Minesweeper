@@ -8,7 +8,16 @@ body {
     background-size: 100%;
     margin: 0;
     padding: 20px;
+}
 
+.settings-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: baseline;
+    /* align-items: center; */
+    background-color: #c0c0c0;
 }
 
 div.board-container {
@@ -56,6 +65,7 @@ table {
 div.levelcontainer {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     padding-bottom: 20px;
 }
 
@@ -126,22 +136,22 @@ div.msgToUser {
     background-position: 414px 112px;
 }
 
-button {
+.game-start-btn {
     width: 36px;
     height: 36px;
     background-image: url(../assets/minesweeper-sprites.png);
     background-size: 188px;
 }
 
-.smiley{
+.smiley {
     background-position: -2px -35px;
 }
 
-.looser{
+.looser {
     background-position: -148px -35px;
 }
 
-.winner{
+.winner {
     background-position: 77px -35px;
 }
 
@@ -151,4 +161,41 @@ button {
 
 .lives {
     min-width: 66px;
+}
+
+
+
+.hint-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 5px;
+    background-color: transparent;
+}
+
+.hint {
+    width: 30px;
+    height: 50px;
+    background-image: url(../assets/hhh.png);
+    background-color: transparent;
+    background-size: 46px;
+    background-position: 36px 0px;
+    cursor: pointer;
+    border: none;
+}
+
+.hint1 {
+    display: block;
+}
+
+.hint2 {
+    display: block;
+}
+
+.hint3 {
+    display: block;
+}
+
+.hidden {
+    visibility: hidden;
 }
