@@ -14,19 +14,27 @@
     <p>Choose your level:</p>
     <div class="levelcontainer">
 
-        <input type="radio" onchange="handleLevel(this)" id="4" name="level" value="2" checked="checked">
+        <input type="radio" onchange="handleLevel(this)" id="4" name="level" value="2">
         <label for="html">Beginner</label><br>
-        <input type="radio" onchange="handleLevel(this)" id="8" name="level" value="12">
+        <input type="radio" onchange="handleLevel(this)" id="8" name="level" value="12" checked="checked">
         <label for="css">Intermediate</label><br>
         <input type="radio" onchange="handleLevel(this)" id="12" name="level" value="30">
         <label for="javascript">Expert</label>
 
     </div>
-    
+
     <div class="game-board">
-        <button onclick="restartGame(this)">Start Game</button>
-        <div class="msgToUser">Start playing!</div>
-        <div class="timer">Timer: <span id="spanTimer">0</span></div>
+        <div class="top">
+            <div class="lives">❤️️❤️️❤️️</div>
+            <button class="smiley" onclick="restartGame(this)"></button>
+            <!-- <div class="msgToUser">Start playing!</div> -->
+            <div class="timer">
+                <span id="spanTimer" class="digit digit1 zero"></span>
+                <span id="spanTimer" class="digit digit2 zero"></span>
+                <span id="spanTimer" class="digit digit3 zero"></span>
+            </div>
+        </div>
+
         <div class="board-container"></div>
     </div>
 

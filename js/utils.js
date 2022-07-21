@@ -27,7 +27,6 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min
 }
 
-
 function getTime() {
     return new Date().toString().split(' ')[4];
 }
@@ -63,7 +62,6 @@ function addGameElement(element) {
 
     //Model
     gBoard[chosenCell.i][chosenCell.j] = element
-
     //DOM
     renderCell(chosenCell, element)
 }
@@ -73,8 +71,6 @@ function drawNum(nums) {
     var removedNum = nums.splice(num, 1)
     return removedNum
 }
-
-
 
 function getCellCoord(strCellId) {
     var coord = {}

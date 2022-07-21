@@ -85,7 +85,6 @@ function setMines(board, size, mines, cellI, cellJ) {
     return board
 }
 
-
 //  Counting neighbors: Create setMinesNegsCount() and store the numbers (isShown is still true)
 function setMinesNegsCount(board) {
 
@@ -104,56 +103,84 @@ function setMinesNegsCount(board) {
 
 // Game ends when all mines are marked, and all the other cells are shown
 function checkGameOver(cellI, cellJ) {
-    
+
     if (gGame.markedCount === gLevel.SIZE ** 2) return
-    if ((gGame.showCount + gGame.markedCount) === gLevel.SIZE ** 2) {
-        gIsWin = true
-        gameover()
+    var shown = 0
+    var marked = 0
+    for (let i = 0; i < gBoard.length; i++) {
+        for (let j = 0; j < gBoard.length; j++) {
+
+
+            if (gBoard[i][j].isShown) {
+                shown++
+            }
+            if (gBoard[i][j].isMarked) {
+                marked++
+            }
+
+        }
+
+    }
+    if ((shown + marked) === gLevel.SIZE ** 2) {
+        gameover('winner')
     }
     if (gBoard[cellI][cellJ].isMine && !gBoard[cellI][cellJ].isMarked) {
-        expandMines(gBoard)
-        gameover()
+        gBoard[cellI][cellJ].isShown
+        gLives--
+        updateLives()
+
+        if (gLives === 0) {
+            expandMines(gBoard)
+            gameover('looser')
+        }
     }
 }
 
 function cellClicked(cellI, cellJ) {
+    if(gBoard[cellI][cellJ].isMarked) gBoard[cellI][cellJ].isMarked = false
     if (gGame.showCount === 0) play(cellI, cellJ)
     if (gBoard[cellI][cellJ].minesAroundCount === 0) expandShown(gBoard, cellI, cellJ)
+    if (!gBoard[cellI][cellJ].isShown) gGame.showCount++
 
     //model
-    gGame.showCount++
     gBoard[cellI][cellJ].isShown = true
     checkGameOver(cellI, cellJ)
     //DOM
     renderBoard(gBoard, ".board-container")
 }
 
-
 //Mark a cell suspected to be a mine
 function cellMarked(cellI, cellJ) {
-
+    if (gBoard[cellI][cellJ].isShown) return
     gBoard[cellI][cellJ].isMarked = !gBoard[cellI][cellJ].isMarked
     //model
-    gBoard[cellI][cellJ].isMarked ? gGame.markedCount++ : gGame.markedCount--
+    if (gBoard[cellI][cellJ].isMarked) {
+        gGame.markedCount--
+    } else {
+        gGame.markedCount++
+    }
+
     checkGameOver(cellI, cellJ)
     //DOM
     renderBoard(gBoard, ".board-container")
 }
 
 function expandShown(board, cellI, cellJ) {
-
     for (var i = cellI - 1; i <= cellI + 1; i++) {
-        if (i < 0 || i >= board.length) continue;
+        if (i < 0 || i >= board.length) continue
 
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j < 0 || j >= board[i].length) continue
             if (i === cellI && j === cellJ) continue
-
             //model
-            if (board[cellI][cellJ].minesAroundCount === 0 && board[cellI][cellJ].isMine === false) {
+            if (board[cellI][cellJ].minesAroundCount === 0) {
                 board[i][j].isShown = true
-                gGame.showCount++
             }
+            if (!board[cellI][cellJ].isMine && !board[cellI][cellJ].isShown) {
+                gGame.showCount++
+
+            }
+
             //DOM
             document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
         }
@@ -162,6 +189,13 @@ function expandShown(board, cellI, cellJ) {
 
 function expandMines() {
     for (var i = 0; i < gMines.length; i++) {
-        gMines[i].isShown = true
+        if (!gMines[i].isMarked) gMines[i].isShown = true
+    }
+}
+
+function updateLives() {
+    document.querySelector('.lives').innerHTML = ''
+    for (let i = 0; i < gLives; i++) {
+        document.querySelector('.lives').innerHTML += LIVE
     }
 }

@@ -5,17 +5,18 @@ var gGame = {
     secsPassed: 0,
 }
 var gLevel = {
-    SIZE: 4,
-    MINES: 2,
+    SIZE: 8,
+    MINES: 12,
 }
 
 var gBoard
 var gSecInterval = 1
 var gStartTime = Date.now()
-var gIsWin = false
 var gLives = 3
 
-// This is called when page loads 
+const LIVE = '❤️️'
+
+
 function initGame() {
     gBoard = buildBoard(gLevel.SIZE)
     renderBoard(gBoard, '.board-container')
@@ -27,7 +28,6 @@ function handleLevel(ev) {
     restartGame()
 }
 
-// This is called when page loads 
 function play(cellI, cellJ) {
     startTimer()
     updateTime()
@@ -37,13 +37,18 @@ function play(cellI, cellJ) {
 }
 
 function restartGame(elBtn) {
-    if(!gGame.isOn) document.querySelector('.msgToUser').innerText = 'Choose cell and click on it!'
-    if (elBtn) elBtn.innerText = 'Start Game'
+    switchBtnClass('smiley')
     clearInterval(gSecInterval)
     gGame.isOn = true
     gGame.showCount = 0
     gGame.markedCount = 0
     gGame.secsPassed = 0
+    if(gLevel.SIZE == 4){
+        gLives = 2
+    }else{
+        gLives = 3
+    }
+    updateLives()
     updateTime()
     initGame()
 }
@@ -58,23 +63,67 @@ function startTimer() {
     }, 1000)
 }
 
+function getNumClass(num) {
+    switch (num) {
+        case '0':
+            return 'zero'
+        case '1':
+            return 'one'
+        case '2':
+            return 'two'
+        case '3':
+            return 'three'
+        case '4':
+            return 'four'
+        case '5':
+            return 'five'
+        case '6':
+            return 'six'
+        case '7':
+            return 'seven'
+        case '8':
+            return 'eight'
+        case '9':
+            return 'nine'
+        default:
+            break;
+    }
+}
+
 function updateTime() {
-    var elSpanTimer = document.querySelector('#spanTimer')
-    var timer = (gGame.secsPassed/1000000).toFixed(3)
-    elSpanTimer.innerText = timer.substring([2], timer.length)
+    // var elSpanTimer = document.querySelector('#spanTimer')
+    var digit1 = document.querySelector('.digit1')
+    var digit2 = document.querySelector('.digit2')
+    var digit3 = document.querySelector('.digit3')
+    var timeStr = Math.floor((gGame.secsPassed / 1000)).toString()
+
+    if (timeStr.length === 1) {
+        timeStr = '00' + timeStr
+    } else if (timeStr.length === 2) {
+        timeStr = '0' + timeStr
+    }
+
+    const numsNames = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+
+    digit1.classList.remove(...numsNames)
+    digit1.classList.add(getNumClass(timeStr[0]))
+
+    digit2.classList.remove(...numsNames)
+    digit2.classList.add(getNumClass(timeStr[1]))
+
+    digit3.classList.remove(...numsNames)
+    digit3.classList.add(getNumClass(timeStr[2]))
 }
 
-function gameover() {
+function gameover(gameRes) {
     gGame.isOn = false
-    document.querySelector('button').innerText = "Game Over"
-    msgToUser()
-    console.log('gGame.secsPassed', gGame.secsPassed)
     clearInterval(gSecInterval)
+    switchBtnClass(gameRes)
 }
 
-function msgToUser() {
-    document.querySelector('.msgToUser').innerText = (gIsWin) ? 'YOU WIN' : 'TRY AGAIN?'
-    gIsWin = false
+function switchBtnClass(classAdd){
+
+    const classOpts =['smiley', 'looser','winner','click']
+    document.querySelector('button').classList.remove(...classOpts)
+    document.querySelector('button').classList.add(classAdd)
 }
-
-

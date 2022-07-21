@@ -3,6 +3,12 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background-image: url('../assets/winxp.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin: 0;
+    padding: 20px;
+
 }
 
 div.board-container {
@@ -10,13 +16,12 @@ div.board-container {
     justify-content: center;
 }
 
-
 .game-board {
     background-color: #c0c0c0;
     padding: 20px 10px;
 }
 
-table{
+table {
     display: flex;
     justify-content: center;
     background-color: #c0c0c0;
@@ -25,16 +30,16 @@ table{
 }
 
 .cell {
-    width: 50px;
-    height: 50px;
+    width: 26px;
+    height: 26px;
     border: 1px solid rgb(121, 119, 119);
     text-align: center;
     font-size: 1em;
     cursor: pointer;
     box-sizing: border-box;
     background-image: url('../assets/minesweeper-sprites.png');
-    background-position: 414px 98px;
-    background-size: 413px;
+    background-position: 607px 171px;
+    background-size: 202px;
 }
 
 .visible {
@@ -44,8 +49,8 @@ table{
 
 .marked {
     background-image: url('../assets/flag.svg');
-    background-position: 0px;
-    background-size: 48px;
+    background-position: 1px;
+    background-size: 24px;
 }
 
 div.levelcontainer {
@@ -55,16 +60,95 @@ div.levelcontainer {
 }
 
 div.timer {
+    display: flex;
+    justify-content: center;
+    background-color: #000;
+    padding: 4px 2px 2px 2px;
+}
+
+div.msgToUser {
     padding-right: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
 
-div.msgToUser{
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+.top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
 }
 
+.digit {
+    background-image: url(../assets/minesweeper-sprites.png);
+    display: block;
+    width: 20px;
+    height: 30px;
+    background-size: 188px;
+}
 
+.zero {
+    background-position: 583px 112px;
+}
 
+.one {
+    background-position: 565px 112px;
+}
+
+.two {
+    background-position: 547px 112px;
+}
+
+.three {
+    background-position: 527px 112px;
+}
+
+.four {
+    background-position: 508px 112px;
+}
+
+.five {
+    background-position: 489px 112px;
+}
+
+.six {
+    background-position: 471px 112px;
+}
+
+.seven {
+    background-position: 452px 112px;
+}
+
+.eight {
+    background-position: 433px 112px;
+}
+
+.nine {
+    background-position: 414px 112px;
+}
+
+button {
+    width: 36px;
+    height: 36px;
+    background-image: url(../assets/minesweeper-sprites.png);
+    background-size: 188px;
+}
+
+.smiley{
+    background-position: -2px -35px;
+}
+
+.looser{
+    background-position: -148px -35px;
+}
+
+.winner{
+    background-position: 77px -35px;
+}
+
+.click {
+    background-position: -2px -35px;
+}
+
+.lives {
+    min-width: 66px;
+}
