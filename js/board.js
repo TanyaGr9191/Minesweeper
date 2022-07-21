@@ -171,7 +171,6 @@ function cellMarked(cellI, cellJ) {
         gGame.markedCount--
     }
 
-
     //DOM
     renderBoard(gBoard, ".board-container")
 }
@@ -187,9 +186,6 @@ function expandShown(board, cellI, cellJ) {
             if (board[cellI][cellJ].minesAroundCount === 0) {
                 board[i][j].isShown = true
             }
-
-            //DOM
-            document.querySelector(`[data-i="${i}"][data-j="${j}"]`)
         }
     }
 }
