@@ -32,7 +32,7 @@ table{
     font-size: 1em;
     cursor: pointer;
     box-sizing: border-box;
-    background-image: url('/assets/minesweeper-sprites.png');
+    background-image: url('assets/minesweeper-sprites.png');
     background-position: 414px 98px;
     background-size: 413px;
 }
@@ -43,7 +43,7 @@ table{
 }
 
 .marked {
-    background-image: url('/assets/flag.svg');
+    background-image: url('assets/flag.svg');
     background-position: 0px;
     background-size: 48px;
 }
