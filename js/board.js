@@ -209,7 +209,6 @@ function showHint(cellI, cellJ, isShow) {
 
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j < 0 || j >= gBoard[i].length) continue
-            if (i === cellI && j === cellJ) continue
             //model
             gBoard[i][j].isShown = isShow
             //DOM
