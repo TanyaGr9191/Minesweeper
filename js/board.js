@@ -16,9 +16,7 @@ function createCell() {
     return newCell
 }
 
-// Builds the board
 function buildBoard(SIZE) {
-    // Create a 4x4 gBoard Matrix containing Objects
     const board = []
     for (var i = 0; i < SIZE; i++) {
         board.push([])
@@ -29,7 +27,6 @@ function buildBoard(SIZE) {
     return board
 }
 
-// Present the board using renderBoard() function
 function renderBoard(mat, selector) {
 
     var strHTML = '<table border="0" oncontextmenu="return false"><tbody>'
@@ -62,7 +59,6 @@ function renderBoard(mat, selector) {
     elContainer.innerHTML = strHTML
 }
 
-//Randomly locate the mines on the board
 function setMines(board, size, mines, cellI, cellJ) {
     gMines = []
 
@@ -70,24 +66,20 @@ function setMines(board, size, mines, cellI, cellJ) {
         var randomI = getRandomInt(0, size - 1)
         var randomJ = getRandomInt(0, size - 1)
 
-        // Make sure the first clicked cell is never a mine (like in the real game) 
         if (randomI === cellI && randomJ === cellJ ||
             board[randomI][randomJ].content === MINE) {
             i--
         } else {
             board[randomI][randomJ].content = MINE
             board[randomI][randomJ].isMine = true
-            // Make array of generated mines to reveal all when game is over
             gMines.push(board[randomI][randomJ])
         }
     }
     return board
 }
 
-//  Counting neighbors: Create setMinesNegsCount() and store the numbers (isShown is still true)
 function setMinesNegsCount(board) {
 
-    // model
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[0].length; j++) {
             board[i][j].minesAroundCount = countNeighbors(board, i, j)
@@ -101,7 +93,6 @@ function setMinesNegsCount(board) {
 }
 
 
-// Game ends when all mines are marked, and all the other cells are shown
 function checkGameOver(cellI, cellJ) {
 
     if (gGame.markedCount === gLevel.SIZE ** 2) return
@@ -157,18 +148,14 @@ function cellClicked(cellI, cellJ) {
         expandShown(gBoard, cellI, cellJ)
     }
 
-    //model
     gBoard[cellI][cellJ].isShown = true
     checkGameOver(cellI, cellJ)
-    //DOM
     renderBoard(gBoard, ".board-container")
 }
 
-//Mark a cell suspected to be a mine
 function cellMarked(cellI, cellJ) {
     if (gBoard[cellI][cellJ].isShown) return
     gBoard[cellI][cellJ].isMarked = !gBoard[cellI][cellJ].isMarked
-    //model
     if (gBoard[cellI][cellJ].isMarked) {
         gGame.markedCount++
         checkGameOver(cellI, cellJ)
@@ -176,7 +163,6 @@ function cellMarked(cellI, cellJ) {
         gGame.markedCount--
     }
 
-    //DOM
     renderBoard(gBoard, ".board-container")
 }
 
@@ -216,9 +202,7 @@ function showHint(cellI, cellJ, isShow) {
 
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j < 0 || j >= gBoard[i].length) continue
-            //model
             gBoard[i][j].isShown = isShow
-            //DOM
             renderBoard(gBoard, ".board-container")
         }
     }
