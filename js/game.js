@@ -1,3 +1,4 @@
+'use-strict'
 var gGame = {
     isOn: false,
     showCount: 0,
@@ -7,6 +8,7 @@ var gGame = {
 var gLevel = {
     SIZE: 8,
     MINES: 12,
+    LEVEL: ''
 }
 
 var gBoard
@@ -15,6 +17,9 @@ var gSecInterval = 1
 var gStartTime = Date.now()
 var gLives = 3
 
+const BEST_BEGINNER = 'bestBeginnerScore'
+const BEST_INTERMEDIATE = 'bestIntermediateScore'
+const BEST_EXPERT = 'bestExpertScore'
 const LIVE = '❤️️'
 
 
@@ -26,7 +31,19 @@ function initGame() {
 function handleLevel(ev) {
     gLevel.SIZE = ev.id
     gLevel.MINES = ev.value
+    gLevel.LEVEL = setLevel(gLevel.SIZE)
+    updateBestScoreBoard(gLevel.LEVEL)
     restartGame()
+}
+
+function setLevel(size) {
+    var chosenLevel = ''
+
+    if (size === '4') chosenLevel = BEST_BEGINNER
+    else if (size === '8') chosenLevel = BEST_INTERMEDIATE
+    else if (size === '12') chosenLevel = BEST_EXPERT
+
+    return chosenLevel
 }
 
 function play(cellI, cellJ) {

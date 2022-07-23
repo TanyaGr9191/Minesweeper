@@ -51,7 +51,7 @@ function renderBoard(mat, selector) {
                 \t<td oncontextmenu="cellMarked(${i},${j})"
                     data-i="${i}" data-j="${j}"
                     onclick="cellClicked(${i},${j})"
-                    class="${className}">${cell.isShown ? `<span>${cell.content}</span>` : ''}
+                    class="${className} num-${cell.content} bold">${cell.isShown ? `<span>${cell.content}</span>` : ''}
                 </td>\n`
         }
         strHTML += '\t</tr>\n'
@@ -100,6 +100,7 @@ function setMinesNegsCount(board) {
     return board
 }
 
+
 // Game ends when all mines are marked, and all the other cells are shown
 function checkGameOver(cellI, cellJ) {
 
@@ -119,6 +120,8 @@ function checkGameOver(cellI, cellJ) {
 
     }
     if ((shown + marked) === gLevel.SIZE ** 2) {
+        setBestScore(gLevel.LEVEL)
+        updateBestScoreBoard(gLevel.LEVEL)
         gameover('winner')
     }
     if (gBoard[cellI][cellJ].isMine && !gBoard[cellI][cellJ].isMarked) {
@@ -149,8 +152,10 @@ function cellClicked(cellI, cellJ) {
         }, 1000);
         return
     }
-    if (gBoard[cellI][cellJ].minesAroundCount === 0) expandShown(gBoard, cellI, cellJ)
-
+    if (gBoard[cellI][cellJ].isMine === false &&
+        gBoard[cellI][cellJ].minesAroundCount === 0) {
+        expandShown(gBoard, cellI, cellJ)
+    }
 
     //model
     gBoard[cellI][cellJ].isShown = true
@@ -182,8 +187,10 @@ function expandShown(board, cellI, cellJ) {
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j < 0 || j >= board[i].length) continue
             if (i === cellI && j === cellJ) continue
-            //model
-            if (board[cellI][cellJ].minesAroundCount === 0) {
+            if (board[i][j].minesAroundCount === 0 && board[i][j].isShown === false) {
+                board[i][j].isShown = true
+                expandShown(board, i, j)
+            } else {
                 board[i][j].isShown = true
             }
         }
@@ -224,4 +231,23 @@ function setHint(el) {
     gIsHintMode = true
 }
 
+function setBestScore(level) {
+    const minTime = checkMinTime(level).toString()
+    localStorage.setItem(level, minTime)
+}
 
+function checkMinTime(level) {
+    var minTime = localStorage.getItem(level)
+
+    if (!minTime) minTime = Infinity
+    gGame.secsPassed = Math.floor((gGame.secsPassed / 1000))
+    if (gGame.secsPassed < +minTime) {
+        minTime = gGame.secsPassed
+    }
+
+    return minTime
+}
+
+function updateBestScoreBoard(level) {
+    document.querySelector('.best-score span').innerText = localStorage.getItem(level)
+}

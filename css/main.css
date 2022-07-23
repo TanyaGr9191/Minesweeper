@@ -16,7 +16,6 @@ body {
     justify-content: center;
     flex-direction: column;
     align-items: baseline;
-    /* align-items: center; */
     background-color: #c0c0c0;
 }
 
@@ -76,11 +75,6 @@ div.timer {
     padding: 4px 2px 2px 2px;
 }
 
-div.msgToUser {
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
 
 .top {
     display: flex;
@@ -196,4 +190,41 @@ div.msgToUser {
 
 .hidden {
     visibility: hidden;
+}
+
+.best-score {
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.num-1 {
+    color: blue;
+}
+
+.num-2 {
+    color: green;
+}
+
+.num-3 {
+    color: red;
+}
+.num-4 {
+    color: rgb(1, 1, 105);
+}
+.num-5 {
+    color: brown;
+}
+.num-6 {
+    color: turquoise;
+}
+.num-7 {
+    color: rgb(13, 14, 13);
+}
+.num-8 {
+    color: gray;
+}
+
+.bold{
+    font-weight: bold;
 }
