@@ -1,4 +1,4 @@
-# ✨ Overview of the app
+# :bulb: Overview of the app
 
 The Minesweeper project created with Javascript is a digital version of the classic game where players uncover hidden mines on a grid.
 
